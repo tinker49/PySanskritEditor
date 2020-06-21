@@ -6,4 +6,9 @@ k = क
 shift-k = ख
 
 c = च
-shit-c = छ
+shift-c = छ
+
+t = त
+shift-t = थ
+alt-t = ट
+alt-shift-t = ठ
