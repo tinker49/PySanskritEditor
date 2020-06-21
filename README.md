@@ -45,3 +45,22 @@ r = र
 l = ल
 w = व
 h = ह
+
+### Vowels
+
+a = अ
+
+i = इ
+shift-i = ई
+
+u = उ
+shift-u = ऊ
+
+e = ए
+shift-e = ऐ
+
+o = ओ
+shift-o = औ
+
+shift-m = ं
+shift-h = ः
