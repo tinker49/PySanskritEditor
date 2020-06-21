@@ -49,25 +49,38 @@ h = ह
 ### Vowels
 
 a = अ
+shift-a = आ
+alt-shift-a = ा
 
 i = इ
+alt-i = ि
 shift-i = ई
+alt-shift-i = ी
 
 u = उ
+alt-u = ु
 shift-u = ऊ
+alt-shift-u = ू
 
 e = ए
+alt-e = े
 shift-e = ऐ
+alt-shift-e = ै
 
 o = ओ
+alt-o = ो
 shift-o = औ
+alt-shift-o = ौ
 
 ### Other
 
 shift-m = ं
 shift-h = ः
 
-~ = ् (avagraha)
+~ = ् (virama)
+
+q = (zero width non-joiner)
+Q =  (zero width joiner)
 
 \ = ।
 | = ॥
