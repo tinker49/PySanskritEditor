@@ -31,7 +31,7 @@ shift-b = भ
 
 n = न
 shift-n = ण
-alt-n = 
+alt-shift-n = ड़
 
 y = य
 shift-y = ञ
@@ -39,7 +39,7 @@ shift-y = ञ
 
 s = स
 shift-s = ष
-alt-s = 
+alt-shift-s = श
 
 r = र
 l = ल
