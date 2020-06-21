@@ -35,3 +35,13 @@ alt-n =
 
 y = य
 shift-y = ञ
+
+
+s = स
+shift-s = ष
+alt-s = 
+
+r = र
+l = ल
+w = व
+h = ह
