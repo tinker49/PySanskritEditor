@@ -52,22 +52,27 @@ class TextViewWindow(Gtk.Window):
         toolbar = Gtk.Toolbar()
         self.grid.attach(toolbar, 0, 0, 3, 1)
 
+        button_open = Gtk.ToolButton()
+        button_open.set_icon_name("document-open")
+        toolbar.insert(button_open, 0)
+        button_open.connect("clicked", self.on_open)
+
         button_save = Gtk.ToolButton()
         button_save.set_icon_name("document-save")
-        toolbar.insert(button_save, 3)
+        toolbar.insert(button_save, 1)
         button_save.connect("clicked", self.on_save)
 
         button_bold = Gtk.ToolButton()
         button_bold.set_icon_name("format-text-bold-symbolic")
-        toolbar.insert(button_bold, 0)
+        toolbar.insert(button_bold, 2)
 
         button_italic = Gtk.ToolButton()
         button_italic.set_icon_name("format-text-italic-symbolic")
-        toolbar.insert(button_italic, 1)
+        toolbar.insert(button_italic, 3)
 
         button_underline = Gtk.ToolButton()
         button_underline.set_icon_name("format-text-underline-symbolic")
-        toolbar.insert(button_underline, 2)
+        toolbar.insert(button_underline, 4)
 
         button_bold.connect("clicked", self.on_button_clicked, self.tag_bold)
         button_italic.connect(
@@ -131,11 +136,12 @@ class TextViewWindow(Gtk.Window):
 
         self.textview = Gtk.TextView()
         self.textbuffer = self.textview.get_buffer()
-        self.textbuffer.set_text(
-            "This is some text inside of a Gtk.TextView. "
-            + "Select text and click one of the buttons 'bold', 'italic', "
-            + "or 'underline' to modify the text accordingly."
-        )
+        #self.textbuffer.set_text(
+        #    "This is some text inside of a Gtk.TextView. "
+        #    + "Select text and click one of the buttons 'bold', 'italic', "
+        #    + "or 'underline' to modify the text accordingly."
+        #)
+        self.textbuffer.set_text("" )
         scrolledwindow.add(self.textview)
 
         self.tag_bold = self.textbuffer.create_tag(
@@ -185,14 +191,42 @@ class TextViewWindow(Gtk.Window):
         elif response == Gtk.ResponseType.CANCEL:
             print("Cancel clicked")
 
-        #if response == Gtk.ResponseType.OK:
-        #    file_path = dialog.get_filename()
-        #    print("Save clicked")
-        #    print("File selected: " + file_path)
-        #    #self.labelframe.set_label(os.path.basename(file_path))
-        #    self.editor.save_file(file_path)
-        #elif response == Gtk.ResponseType.CANCEL:
-        #    print("Cancel clicked")
+        dialog.destroy()
+
+    def on_open(self, event):
+        print('save')
+        dialog = Gtk.FileChooserDialog("Please choose a file", self,
+            Gtk.FileChooserAction.SAVE,
+            (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
+             Gtk.STOCK_SAVE, Gtk.ResponseType.OK))
+
+        filter = Gtk.FileFilter()
+        filter.set_name('All files')
+        filter.add_pattern('*')
+        dialog.add_filter(filter)
+
+        txtFilter = Gtk.FileFilter()
+        txtFilter.set_name('Text file')
+        txtFilter.add_pattern('*.txt')
+        dialog.add_filter(txtFilter)
+
+        #self.add_filters(dialog)
+        response = dialog.run()
+
+        if response == Gtk.ResponseType.OK:
+            filename = dialog.get_filename()
+            print(filename, 'selected.')
+            buf = self.textbuffer
+
+            try:
+                with open(filename, 'r') as f:
+                    data = f.read()
+                    buf.set_text(data)
+                 #open(filename, 'w').write(text)
+            except SomeError as err:
+                 print('Could not save %s: %s' % (filename, err))
+        elif response == Gtk.ResponseType.CANCEL:
+            print("Cancel clicked")
 
         dialog.destroy()
 
