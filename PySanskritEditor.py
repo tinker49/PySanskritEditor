@@ -52,6 +52,11 @@ class TextViewWindow(Gtk.Window):
         toolbar = Gtk.Toolbar()
         self.grid.attach(toolbar, 0, 0, 3, 1)
 
+        button_save = Gtk.ToolButton()
+        button_save.set_icon_name("document-save")
+        toolbar.insert(button_save, 3)
+        button_save.connect("clicked", self.on_save)
+
         button_bold = Gtk.ToolButton()
         button_bold.set_icon_name("format-text-bold-symbolic")
         toolbar.insert(button_bold, 0)
@@ -142,6 +147,54 @@ class TextViewWindow(Gtk.Window):
         )
         self.tag_found = self.textbuffer.create_tag(
             "found", background="yellow")
+
+
+    def on_save(self, event):
+        print('save')
+        dialog = Gtk.FileChooserDialog("Please choose a file", self,
+            Gtk.FileChooserAction.SAVE,
+            (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
+             Gtk.STOCK_SAVE, Gtk.ResponseType.OK))
+
+        filter = Gtk.FileFilter()
+        filter.set_name('All files')
+        filter.add_pattern('*')
+        dialog.add_filter(filter)
+
+        txtFilter = Gtk.FileFilter()
+        txtFilter.set_name('Text file')
+        txtFilter.add_pattern('*.txt')
+        dialog.add_filter(txtFilter)
+
+        #self.add_filters(dialog)
+        response = dialog.run()
+
+        if response == Gtk.ResponseType.OK:
+            filename = dialog.get_filename()
+            print(filename, 'selected.')
+            buf = self.textbuffer
+            text = buf.get_text(buf.get_start_iter(),
+                        buf.get_end_iter(),
+                        True)
+            try:
+                 with open(filename, 'w') as f:
+                     f.write(text)
+                 #open(filename, 'w').write(text)
+            except SomeError as err:
+                 print('Could not save %s: %s' % (filename, err))
+        elif response == Gtk.ResponseType.CANCEL:
+            print("Cancel clicked")
+
+        #if response == Gtk.ResponseType.OK:
+        #    file_path = dialog.get_filename()
+        #    print("Save clicked")
+        #    print("File selected: " + file_path)
+        #    #self.labelframe.set_label(os.path.basename(file_path))
+        #    self.editor.save_file(file_path)
+        #elif response == Gtk.ResponseType.CANCEL:
+        #    print("Cancel clicked")
+
+        dialog.destroy()
 
     def create_buttons(self):
         check_editable = Gtk.CheckButton("Editable")
