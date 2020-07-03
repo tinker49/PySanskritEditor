@@ -418,6 +418,12 @@ class TextViewWindow(Gtk.Window):
 
         if current_switch_val and (keyname=="r") and not (mask & accel_masks):
             self.textbuffer.insert_at_cursor(u"\u0930")  # r
+
+        if current_switch_val and (keyname=="r") and (mask & Gdk.ModifierType.MOD1_MASK):
+            self.textbuffer.insert_at_cursor(u"\u0943")  # alt-r
+        if current_switch_val and (keyname=="R") and (mask & Gdk.ModifierType.MOD1_MASK):
+            self.textbuffer.insert_at_cursor(u"\u0944")  # alt-shift-r
+
         if current_switch_val and (keyname=="w") and not (mask & accel_masks):
             self.textbuffer.insert_at_cursor(u"\u0935")  # w
 
