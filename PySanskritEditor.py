@@ -525,6 +525,10 @@ class TextViewWindow(Gtk.Window):
         if current_switch_val and (keyname=="underscore")  and (mask & accel_masks_shift) and not (mask & accel_masks_nonshift):
             self.textbuffer.insert_at_cursor(u"\u093d")  # shift-- avagraha
 
+        if current_switch_val and (keyname=="question")  and (mask & accel_masks_shift) and not (mask & accel_masks_nonshift):
+            self.textbuffer.insert_at_cursor(u"\u003f")  # shift-/ or ?
+
+
         if current_switch_val and (keyname=="BackSpace") and not (mask & accel_masks):
             curpos = self.textview.get_buffer().get_property("cursor-position")
             self.textbuffer.delete(self.textview.get_buffer().get_iter_at_offset(curpos-1),self.textview.get_buffer().get_iter_at_offset(curpos))  # -
