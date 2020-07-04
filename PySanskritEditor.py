@@ -526,6 +526,9 @@ class TextViewWindow(Gtk.Window):
         if current_switch_val and (keyname=="quotedbl")  and (mask & accel_masks_shift) and not (mask & accel_masks_nonshift):
             self.textbuffer.insert_at_cursor(u"\u201d")  # shift-
 
+        if current_switch_val and (keyname=="space") and not (mask & accel_masks):
+            self.textbuffer.insert_at_cursor(" ")  # space
+
         if current_switch_val and (keyname=="minus") and not (mask & accel_masks):
             self.textbuffer.insert_at_cursor(u"\u2010")  # -
         if current_switch_val and (keyname=="underscore")  and (mask & accel_masks_shift) and not (mask & accel_masks_nonshift):
