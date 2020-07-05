@@ -62,17 +62,23 @@ class TextViewWindow(Gtk.Window):
         toolbar.insert(button_save, 1)
         button_save.connect("clicked", self.on_save)
 
+        button_bigfont = Gtk.ToolButton()
+        button_bigfont.set_icon_name("preferences-desktop-font")
+        toolbar.insert(button_bigfont, 2)
+
         button_bold = Gtk.ToolButton()
         button_bold.set_icon_name("format-text-bold-symbolic")
-        toolbar.insert(button_bold, 2)
+        toolbar.insert(button_bold, 3)
 
         button_italic = Gtk.ToolButton()
         button_italic.set_icon_name("format-text-italic-symbolic")
-        toolbar.insert(button_italic, 3)
+        toolbar.insert(button_italic, 4)
 
         button_underline = Gtk.ToolButton()
         button_underline.set_icon_name("format-text-underline-symbolic")
-        toolbar.insert(button_underline, 4)
+        toolbar.insert(button_underline, 5)
+
+        button_bigfont.connect("clicked", self.on_button_clicked, self.tag_bigfont)
 
         button_bold.connect("clicked", self.on_button_clicked, self.tag_bold)
         button_italic.connect(
@@ -143,6 +149,9 @@ class TextViewWindow(Gtk.Window):
         #)
         self.textbuffer.set_text("" )
         scrolledwindow.add(self.textview)
+
+        self.tag_bigfont = self.textbuffer.create_tag(
+            "bigfont", font="Sans 24")
 
         self.tag_bold = self.textbuffer.create_tag(
             "bold", weight=Pango.Weight.BOLD)
