@@ -551,7 +551,12 @@ class TextViewWindow(Gtk.Window):
 
         if current_switch_val and (keyname=="BackSpace") and not (mask & accel_masks):
             curpos = self.textview.get_buffer().get_property("cursor-position")
-            self.textbuffer.delete(self.textview.get_buffer().get_iter_at_offset(curpos-1),self.textview.get_buffer().get_iter_at_offset(curpos))  # -
+            self.textbuffer.delete(self.textview.get_buffer().get_iter_at_offset(curpos-1),self.textview.get_buffer().get_iter_at_offset(curpos))
+
+
+        ### Vedic extensions
+        if current_switch_val and (keyname=="z") and not (mask & accel_masks):
+            self.textbuffer.insert_at_cursor(u"\u1cd9")  # z - VEDIC TONE YAJURVEDIC KATHAKAINDEPENDENT SVARITA SCHROEDER
 
 
     def on_justify_toggled(self, widget, justification):
