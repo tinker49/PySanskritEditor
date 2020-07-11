@@ -402,6 +402,8 @@ class TextViewWindow(Gtk.Window):
             self.textbuffer.insert_at_cursor(u"\u0923")  # shift-n
         if current_switch_val and (keyname=="N") and (mask & Gdk.ModifierType.MOD1_MASK):
             self.textbuffer.insert_at_cursor(u"\u095c")  # alt-shift-n
+        if current_switch_val and (keyname=="n") and (mask & Gdk.ModifierType.MOD1_MASK):
+            self.textbuffer.insert_at_cursor(u"\u0919")  # alt-n
 
         if current_switch_val and (keyname=="s") and not (mask & accel_masks):
             self.textbuffer.insert_at_cursor(u"\u0938")  # s
